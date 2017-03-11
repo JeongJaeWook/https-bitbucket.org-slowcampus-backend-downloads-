@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <% include ../partials/head %>
+</head>
+
+<body>
+<div id="wrapper">
+<header>
+    <% include ../partials/menu %>
+</header>
+
+<main>
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                <!-- Page Heading -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">
+                            Error
+                        </h1>
+                    </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-12">
+                    <div class="alert alert-danger" role="alert">
+                    <%= mesg %>
+                    </div>
+                  </div>
+                </div>
+            </div> <!-- /.container-fluid -->
+        </div> <!-- /#page-wrapper -->
+
+
+</main>
+
+<footer>
+  <% include ../partials/footer %>
+</footer>
+</div>
+</body>
+</html>

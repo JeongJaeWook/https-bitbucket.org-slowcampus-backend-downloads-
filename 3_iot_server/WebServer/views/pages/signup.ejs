@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="kr">
+
+
+<head>
+<link rel="stylesheet"
+  href="//netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+
+  <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $('#signSubmit').button();
+
+      $('#signSubmit').on('click',function(event) {
+        event.preventDefault(); // To prevent following the link (optional)
+
+        $(this).button('loading');
+
+        var formData = $('form').serialize();
+        $.ajax({
+            type: "POST",
+            url: 'api/signup',
+            data:formData,
+
+            success: function(response) {
+              if( response ){
+                window.location.replace(response.goto);
+              }
+            },
+
+            error: function(request, status, error){
+              alert('회원가입에 실패하였습니다 ',error);
+              window.location.replace('/signup');
+            }
+        });
+
+      });
+    });
+  </script>
+
+<!--   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.0/cosmo/bootstrap.min.css" type="text/css"> -->
+<!--   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.0/darkly/bootstrap.min.css" type="text/css"> -->
+<link rel="stylesheet" type="text/css" href="css/login.css">
+</head>
+
+<body>
+<div class="vertical-center horizontal-center">
+<div class="container">
+  <form role="form">
+    <div class="form-group ">
+      <label for="account_id">아이디</label> 
+      <input type="text" name="account_id" class="form-control" id="account_id">
+    </div>
+    <div class="form-group">
+      <label for="password">비밀번호</label> 
+      <input type="password" name="password" class="form-control" id="password">
+    </div>
+    <div class="form-group">
+      <label for="phone">전화번호</label>
+      <input type="text" name="phone" class="form-control" id="phone">
+    </div>
+    <div class="form-group">
+      <label for="email">이메일</label>
+      <input type="text" name="email" class="form-control" id="email">
+    </div>
+    <!--
+      <input type="button" id="signSubmit" class="btn btn-primary btn-lg" onclick="gotosome()">회원가입</input>
+     -->
+    <button  class="btn btn-primary btn-lg" id="signSubmit"">회원가입 </button>
+
+  </form>
+</div>
+</div>
+
+
+
+</body>
+
+</html>

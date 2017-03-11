@@ -1,0 +1,75 @@
+@import url('http://fonts.googleapis.com/earlyaccess/notosanskr.css');
+@charset "utf-8";
+/************************************************************************************************************************************
+ 	CSS Guide -  2016.02.04 김지현  
+ 	LAST UPDATE - 2016.02.04
+ ************************************************************************************************************************************/
+
+/*COMMON*/
+body {margin:0;padding:0;font:12px/1 'Noto Sans KR',sans-serif;letter-spacing:-.5px;color:#000;-webkit-text-size-adjust:100%;background:white;overflow-y:auto;}
+html,body {height:100%;width:100%;}
+h1,input,ul {padding:0;margin:0;}
+img {border:0;}
+li {list-style:none;}
+button {border:0;padding:0;margin:0;cursor:pointer;text-align:center;background:none;}
+a,a:link,a:visited,a:active {text-decoration:none;color:#757575;}
+
+/*COMMON - ALIGH*/
+.a-left {text-align:left !important;}
+.a-right {text-align:right !important;}
+.a-center {text-align:center !important;}
+.f-l {float:left;}
+.f-r {float:right;}
+.clr:after {clear:both;content:"";display:block;}
+.v-middle {vertical-align:middle !important;}
+.v-top {vertical-align:top !important;}
+.add-mg-b {margin-bottom:50px !important;}
+.add-pd-rl {padding:0 30px !important;}
+/*WIDTH*/
+.w-100 {width:100% !important;}
+.w-auto {width:auto !important;}
+
+/*BUTTON*/
+.btn-wrap {position:relative;text-align:center;margin:20px 0 0;}
+.btn-wrap .txt-btn {margin:0 5px;}
+/*BUTTON- COLOR AND SIZE*/
+.txt-btn.disabled,.txt-btn.c-mint.disabled,.txt-btn.c-red.disabled {background:#D1D3D4;color:white;border:1px solid #d1d3d4;}
+.txt-btn.c-mint {background:#C49A6C;border:1px solid #A97C50;}
+.txt-btn {font-size:15px;background:#7d97a4;padding:0 15px;color:white !important;border-radius:3px;display:inline-block;line-height:35px;letter-spacing:-.8px;cursor:pointer !important;font-weight:400;}
+
+/*Corp.LOGO*/
+.bw-clogo {width:150px;height:50px;border:1px solid #CA9A6C;overflow-y:hidden;line-height:50px;text-align:center;color:#CA9A6C;}
+.bw-clogo img {width:100%;height:auto;}
+/*FORMMAIL*/
+.ac-mail {width:600px;margin:0 auto;border:0px;background:#ffffff;}
+.ac-logo {text-align:center;margin:0;height:90px;padding:0;line-height:90px;}
+.ac-logo img {margin:0 auto;display:inline-block;width:120px;height:auto;overflow-y:hidden;}
+.bw-tt-mail {position:relative;height:120px;font-size:21px;color:#EBE7E5;text-align:center;background: #584035;}
+.mail-content-wrap {background:#584035;padding:5px;}
+.mail-content {background:white;padding:35px;}
+.bw-tt-mail p {background:url('../images/icon-mail.png') no-repeat right;background-size:112px;margin:0 25px 0 35px;padding:0;height:100%;}
+.bw-tt-mail.mail-se03 p {font-size:17px;}
+.bw-tt-mail.mail-se03 span.tt-desc {font-size:14px;bottom:35px;}
+.bw-tt-mail span {display:block;text-align:left;padding:40px 0;}
+.bw-tt-mail span.tt-desc {position:absolute;bottom:20px;left:0;font-size:18px;color:#EBE7E5;padding:0;left:35px;}
+.bw-multibox {background:#F1F2F2;border-radius:3px;padding:20px;margin:20px 0;}
+.bw-multibox p {margin:0;}
+.bw-multibox .bw-txtbox {padding:0;text-align:center;font-size:14px;}
+.txt-btn {width:230px;}
+.bw-txtbox {margin:0;padding:10px 0;text-align:left;line-height:23px;color:#58595B;border:0;font-weight:400;font-size:14px; word-break: keep-all;}
+.bw-txtbox p {margin:0;}
+.bw-txtbox .c-mint {color:#CA9A6C;font-weight:500;}
+.ac-footer {position:relative;height:100px;width:100%;text-align:center;margin:0 auto;padding-top:50px;}
+.ac-footer ul {width:330px;margin:30px auto;}
+.ac-footer ul > li {display:inline-block;float:left;}
+.ac-footer li a {color:#e6e7e8;font-weight:300;}
+.ac-footer .ac-logo {margin:0 auto;width:120px;height:auto;}
+.ac-footer {height:190px;background:#584035;padding:10px 0 0;}
+.ac-footer ul {width:auto;margin:0 35px 40px;letter-spacing:0;padding:30px 0 0;}
+.ac-footer li {margin-right:10px;}
+.ac-footer li b {font-weight:500;margin-right:5px;}
+.ac-footer ul:after,
+.ac-footer dl:after {clear:both;display:block;content:"";}
+.ac-footer dl {display:block;color:#C6BAB4;margin:10px 35px;font-size:12px;text-align:left;}
+.ac-footer dd {display:inline-block;float:left;margin:0 10px 0 0;padding:0;line-height:20px;}
+.ac-footer .ac-logo {position:absolute;right:35px;bottom:35px;height:25px;line-height:25px;}

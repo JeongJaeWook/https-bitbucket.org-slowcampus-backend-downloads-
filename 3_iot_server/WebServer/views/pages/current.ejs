@@ -1,0 +1,296 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>Sensor Monitoring Service</title>
+
+	<link type="text/css" rel="stylesheet" href="http://cdn.dp.technion.ac.il/jsPanel-2.0/jsPanel.css">
+	<link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+	<link type="text/css" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<link type="text/css" rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.0/cosmo/bootstrap.min.css">
+  	<link type="text/css" rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+	<link type="text/css" rel="stylesheet" href="css/ionicons.css">
+
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.10.1.js"></script>
+	<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="https://code.jquery.com/ui/1.10.1/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="http://cdn.dp.technion.ac.il/jsPanel-2.0/jquery.jspanel.min.js"></script>
+	<script type="text/javascript" src="http://code.highcharts.com/highcharts.js"></script>
+	<!-- Bootswatch Theme -->
+	<!--
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.0/cosmo/bootstrap.min.css" type="text/css">
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.0/readable/bootstrap.min.css" type="text/css">
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.0/journal/bootstrap.min.css" type="text/css">
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.0/flatly/bootstrap.min.css" type="text/css">
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.0/cerulean/bootstrap.min.css" type="text/css">
+
+	SB Admin compatible themes: lumen, spacelab, simplex, readable, paper -->
+	<style>
+		body { padding-top: 70px; }
+
+	    header a {
+	      float: right;
+	      font-size: 14px;
+	    }
+	    .size-12 { font-size: 12px; }
+	    .size-14 { font-size: 14px; }
+	    .size-16 { font-size: 16px; }
+	    .size-18 { font-size: 18px; }
+	    .size-21 { font-size: 21px; }
+	    .size-24 { font-size: 24px; }
+	    .size-32 { font-size: 32px; }
+	    .size-48 { font-size: 48px; }
+	    .size-56 { font-size: 56px; }
+	    .size-64 { font-size: 64px; }
+	    .size-96 { font-size: 96px; }
+    </style>
+</head>
+
+<body>
+
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container-fluid" style="font-size: 200%">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/current" style="font-size: 150%"> SOMA JJK </a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="/current"> 씨앗방 </a></li>
+        <li><a href="/bodychart"> E-Health </a></li>    
+      </ul>
+    </div>
+  </div>
+</nav>
+
+	<div class="container-fluid">
+		<div class="row">
+			<% sensornames.forEach(function(sensor) { %>
+	        <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
+				<div class="panel panel-info" style="font-size: 200%">
+				    <div id="<%- sensor %>_head" class="panel-heading text-center"></div>
+				    <div class="panel-body" style="text-align: center">
+				    	<div id="<%- sensor %>_icon" style="float: left; display: inline"></div>
+				    	<div id="<%- sensor %>" style="font-size: 200%; margin: 0 auto; display: inline"></div>
+				    	<div id="<%- sensor %>_unit" style="float: right; display: inline"></div>
+				    </div>
+				    <div class="panel-footer" style="text-align: center">
+				    	<div id="<%- sensor %>_chart"></div>
+				    </div>
+			  	</div>
+			</div>
+			<% }); %>
+	  	</div>
+	</div>
+
+	<script src="/socket.io/socket.io.js"></script>
+	<script>
+	var sensorUI = { 
+		'sensor1':
+			{
+			 name: '먼지',
+			 icon: '<span class="step size-56"><i class="ion-no-smoking"></i></span>',
+			 unit: 'ug/m<sup>3</sup>'
+			},
+		'sensor2':
+			{
+			 name: '알콜(에탄올)',
+			 icon: '<span class="step size-56"><i class="ion-beaker"></i></span>',
+			 unit: 'ppm'
+			},
+		'sensor3':
+			{
+			 name: '메탄 CNG',
+			 icon: '<span class="step size-56"><i class="ion-erlenmeyer-flask"></i></span>',
+			 unit: 'ppm'
+			},
+		'sensor4':
+			{
+			 name: 'LPG 가스',
+			 icon: '<span class="step size-56"><i class="ion-ios-flask"></i></span>',
+			 unit: 'ppm'
+			},
+		'sensor5':
+			{
+			 name: '일산화탄소',
+			 icon: '<span class="step size-56"><i class="ion-ios-flask-outline"></i></span>',
+			 unit: 'ppm'
+			},
+		'TEMP':
+			{
+			 name: '온도',
+			 icon: '<span class="step size-56"><i class="ion-thermometer"></i></span>',
+			 unit: '&deg;C'
+			},
+		'HUM':
+			{
+			 name: '습도',
+			 icon: '<span class="step size-56"><i class="ion-ios-rainy"></i></span>',
+			 unit: '%'
+			},
+		'FIRE':
+			{
+			 name: '불꽃',
+			 icon: '<span class="step size-56"><i class="ion-flame"></i></span>',
+			 unit: ' ',
+			 image1: '<img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRUUdWF-D0WiZ3hjSVyRIDAi4S9d76NpMvTBE3_Y9SXBR8pDZ9ZZQ" style="width: 350px; height: 400px">',
+			 image2: '<img src="/img/pocketmon_fire.gif" style="width: 350px; height: 400px">'
+			},
+		'DISTANCE':
+			{
+			 name: '거리',
+			 icon: '<span class="step size-56"><i class="ion-android-navigate"></i></span>',
+			 unit: 'cm'
+			}
+		};
+
+	var sensors = { 'sensor1': 'tag1',
+					'sensor2': 'tag2',
+					'sensor3': 'tag3',
+					'sensor4': 'tag4',
+					'sensor5': 'tag5',
+	};
+
+	function requestData1 (sensorid) {
+		$.ajax({
+			url: '/api/current',
+			data: { sensorname: sensorid },
+			success: function(point) {
+				console.log('point: ' + point[1]);
+				if( sensorid == 'FIRE') {
+					makeImage(sensorid, point[1]);
+				}else {
+					$('#' + sensorid).html(point[1]);
+				}
+				
+				if (sensorUI[sensorid]) {
+					$('#' + sensorid + '_head').html(sensorUI[sensorid].name);
+					$('#' + sensorid + '_icon').html(sensorUI[sensorid].icon);
+					$('#' + sensorid + '_unit').html(sensorUI[sensorid].unit);		
+				}
+			},
+			cache: false
+		});
+	}
+
+	Highcharts.setOptions({
+		global: {
+			useUTC: false
+		}
+	});
+	
+	function makeImage(sensorid, data) {
+		if(data == 1) {
+			$('#'+sensorid).html('안전합니다');
+			$('#'+sensorid + '_chart').html(sensorUI[sensorid].image1);
+		}else if(data == 0) {
+			$('#'+sensorid).html('화재 발생!');
+			$('#'+sensorid + '_chart').html(sensorUI[sensorid].image2);
+		}
+	}
+
+	function makeChart(sensorid) {
+		var chartObj = new Highcharts.Chart({
+			credits: {
+				enabled: false
+			},
+			chart: {
+				renderTo: sensorid + '_chart',
+				defaultSeriesType: 'spline',
+				events: {
+					load: requestDataMany(sensorid)
+				}
+			},
+			title: {
+				text: 'Live Data'
+			},
+			xAxis: {
+				type: 'datetime',
+				tickPixelInterval: 150,
+				maxZoom: 20 * 1000
+			},
+			yAxis: {
+				minPadding: 0.2,
+				maxPadding: 0.2,
+				title: {
+					text: 'Value',
+					margin: 20
+				}
+			},
+			series: [{
+				name: sensorUI[sensorid].name,
+				data: []
+			}]
+		});
+		return chartObj;
+	}
+
+	var chartList = {};
+
+	function updateChartWithOne(sensorid, point) {
+		var chart = chartList[sensorid];
+		if (! chart) {
+			return;
+		}
+		var shift = chart.series[0].data.length > 40;
+		chart.series[0].addPoint(point, true, shift);
+	}
+
+	function updateChartWithMany(sensorid, points) {
+		var chart = chartList[sensorid];
+		if (! chart) {
+			return;
+		}
+		chart.series[0].setData(points, true, true);
+	}
+
+	function requestDataMany (sensorid) {
+		$.ajax({
+			url: '/api/many',
+			data: { sensorname: sensorid },
+			success: function(points) {
+				updateChartWithMany(sensorid, points);
+			},
+			cache: false
+		});
+	}
+
+	$(document).ready(function() {
+		for (var sensor in sensors) {
+			console.log('sensor: ' + sensor);
+			if( sensor != 'FIRE' ) {
+				chartList[sensor] = makeChart(sensor);
+				requestDataMany(sensor);
+			}
+			requestData1(sensor);
+		}
+
+		var socket = io.connect();
+		socket.emit('joinroom', 'CURRENT');
+		socket.on('redraw', function (notidata) {
+			var sensorname = notidata.sensorname;
+			var point = notidata.point;
+			console.log('sensorname: ' + sensorname);
+			console.log('point: ' + point[1]);
+
+			if( sensorname == 'FIRE') {
+				makeImage(sensorname, point[1]);
+			}else {
+				$('#' + sensorname).html(point[1]);
+				updateChartWithOne(sensorname, point);
+			}
+		});
+	});
+</script>
+<footer>
+	<% include ../partials/footer %>
+</footer>
+</body>
+</html>

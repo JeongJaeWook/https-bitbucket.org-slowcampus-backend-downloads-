@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+<script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
+<script src="http://cdn.oesmith.co.uk/morris-0.4.1.min.js"></script>
+<meta charset=utf-8 />
+<title>Morris.js Line Chart Example</title>
+</head>
+<body>
+  
+<h1> Soma JJK Team </h1>
+
+<div id="line-example"></div>
+
+<p>
+<button class="btn btn-primary" type="button" onclick="getMoreData()">New Data !</button>
+</p>
+
+<p>
+<button class="btn btn-primary" type="button" onclick="getRandomData()">Random Data !</button>
+</p>
+
+<script type="text/javascript">
+var vals = [
+    { y: '2004', a: 66, b: 90 },
+    { y: '2005', a: 78,  b: 65 },
+    ];
+
+var linechart = Morris.Line({
+  element: 'line-example',
+  data: vals,
+  xkey: 'y',
+  ykeys: ['a', 'b'],
+  labels: ['Series A', 'Series B'],
+  grid: true,
+  lineWidth: 1,
+  smooth: true,
+  pointSize: 2
+});
+
+function getMoreData() {
+  $.ajax({
+    method:'GET',
+    url:"/api/data2",
+    data: {
+      msg: 'Hello'
+    },
+    error: function(XMLHttpRequest, textStatus, errorThrown) {
+      alert("Status: " + textStatus); alert("Error: " + errorThrown);
+    },
+    success:function(data) {
+      console.log('AJAX RES', vals.length);
+      vals = vals.concat(data);
+      linechart.setData(vals);
+    }
+  });
+}
+
+function getRandomData() {
+  var year = Number(vals[vals.length-1].y);
+  var rdata = {
+    y: (year + 1).toString(),
+    a: 50 + Math.floor(Math.random() * 10),
+    b: 50 + Math.floor(Math.random() * 10)
+  };
+  console.log('RANDOM', rdata);
+  vals.push(rdata);
+  if (vals.length > 20)
+    vals.shift();
+  linechart.setData(vals);
+}
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,14 @@
+{
+  "database": {
+    "host": "dev-platform-fin2b-com.cvg072slrknb.ap-northeast-2.rds.amazonaws.com",
+    "port": 3306,
+    "name": "unit_test",
+    "user": "",
+    "password": ""
+  },
+  "server": {
+    "name": "seed",
+    "environment" : "local",
+    "port": 3000
+  }
+}

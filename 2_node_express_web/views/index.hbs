@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fin2B</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Script-Type" content="text/javascript" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" />
+    <link rel="stylesheet" href="../public/stylesheets/sweetalert.css" type="text/css">
+    <link rel="stylesheet" href="../public/stylesheets/style.css" type="text/css" />
+    <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <script src="../public/javascripts/sweetalert-dev.js"></script>
+    <script src="../public/javascripts/default.js" type="text/javascript"></script>
+</head>
+<body>
+<div class="ac-wrap">
+    <div class="ac-container">
+        <h1>로그인 {{title}}</h1>
+        <div class="m-content">
+            <form action="/login" method="post" class="bw-form">
+                <input type="email" name="email" placeholder="이메일 주소" class="bw-input"/>
+                <input type="password" name="password" placeholder="비밀번호" class="bw-input"/>
+                <div class="input-wrap a-left">
+                    <input type="checkbox" class="ipt-check" id="remeber-email"/>
+                    <label for="remeber-email">이메일 주소 기억하기</label>
+                </div>
+                <input type="submit" class="txt-btn w-100 c-mint" value="로그인"/>
+                <div class="btn-wrap">
+                    <button type="button" class="txt-btn c-trans disabled">이메일찾기/비밀번호 재발급</button>
+                    <button type="button" class="txt-btn c-trans alert-find">(관리자용/</button>
+                    <button type="button" class="txt-btn c-trans">사용지용)</button>
+                </div>
+            </form>
+        </div>
+        <div class="ac-footer">
+            <h2 class="ac-logo"><img src="../public/images/fin2b-logo.png" /></h2>
+            <ul>
+                <li class="w-33"><a href="javascript:void();">ⓒ2016 Fin2B Inc.</a></li>
+                <li class="w-33"><a href="javascript:void();">서비스 약관</a></li>
+                <li class="w-33"><a href="javascript:void();">개인정보 취급방침</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<script>
+    document.querySelector('.alert-find').onclick = function(){
+        swal({
+            title: '',
+            text: '이메일 비밀번호 찾기',
+            type:'input',
+            showCancelButton: true,
+            html: true,
+            confirmButtonText:'아니오',
+            cancelButtonText:'예',
+        });
+    };
+</script>
+</body>
+</html>

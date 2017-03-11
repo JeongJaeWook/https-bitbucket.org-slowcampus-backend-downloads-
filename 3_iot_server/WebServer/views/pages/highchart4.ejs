@@ -1,0 +1,188 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>Highcharts Example</title>
+
+	<link type="text/css" rel="stylesheet"
+	href="http://cdn.dp.technion.ac.il/jsPanel-2.0/jsPanel.css">
+
+	<!-- 1. Add these JavaScript inclusions in the head of your page -->
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.10.1.js"></script>
+	<script type="text/javascript" src="https://code.jquery.com/ui/1.10.1/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="http://cdn.dp.technion.ac.il/jsPanel-2.0/jquery.jspanel.min.js"></script>
+	<script type="text/javascript" src="http://code.highcharts.com/highcharts.js"></script>
+</head>
+
+<body>
+
+	<!-- 3. Add the container -->
+	<div id="container1" style="width: 800px; height: 400px; margin: 0 auto"></div>
+	<div id="container2" style="width: 800px; height: 400px; margin: 0 auto"></div>
+	<div id="container3" style="width: 800px; height: 400px; margin: 0 auto"></div>
+
+	<script>
+	var chart1, chart2, chart3; // global
+	Highcharts.setOptions({
+		global: {
+			useUTC: false
+		}
+	});
+	/**
+	 * Request data from the server, add it to the graph and set a timeout to request again
+	 */
+	 function requestData1() {
+	 	$.ajax({
+	 		url: '/api/sensor',
+	 		data: { sensorname: 'BPM' },
+	 		success: function(point) {
+	 			var series = chart1.series[0],
+				shift = series.data.length > 20; // shift if the series is longer than 20
+
+				// add the point
+				chart1.series[0].addPoint(point, true, shift);
+
+				// call it again after one second
+				setTimeout(requestData1, 1000);
+			},
+			cache: false
+		});
+	 }
+	 function requestData2() {
+	 	$.ajax({
+	 		url: '/api/sensor',
+	 		data: { sensorname: 'SPO2' },
+	 		success: function(point) {
+	 			var series = chart2.series[0],
+				shift = series.data.length > 20; // shift if the series is longer than 20
+
+				// add the point
+				chart2.series[0].addPoint(point, true, shift);
+
+				// call it again after one second
+				setTimeout(requestData2, 1000);
+			},
+			cache: false
+		});
+	 }
+	 function requestData3() {
+	 	$.ajax({
+	 		url: '/api/sensor',
+	 		data: { sensorname: 'BODY_TEMP' },
+	 		success: function(point) {
+	 			var series = chart3.series[0],
+				shift = series.data.length > 20; // shift if the series is longer than 20
+
+				// add the point
+				chart3.series[0].addPoint(point, true, shift);
+
+				// call it again after one second
+				setTimeout(requestData3, 1000);
+			},
+			cache: false
+		});
+	 }
+
+	 $(document).ready(function() {
+	 	chart1 = new Highcharts.Chart({
+	 		credits: {
+	 			enabled: false
+	 		},
+	 		chart: {
+	 			renderTo: 'container1',
+	 			defaultSeriesType: 'spline',
+	 			events: {
+	 				load: requestData1
+	 			}
+	 		},
+	 		title: {
+	 			text: 'Live Heart Rate Data'
+	 		},
+	 		xAxis: {
+	 			type: 'datetime',
+	 			tickPixelInterval: 150,
+	 			maxZoom: 20 * 1000
+	 		},
+	 		yAxis: {
+	 			minPadding: 0.2,
+	 			maxPadding: 0.2,
+	 			title: {
+	 				text: 'Value',
+	 				margin: 80
+	 			}
+	 		},
+	 		series: [{
+	 			name: 'Heart Rate [bpm]',
+	 			data: []
+	 		}]
+	 	});
+
+	 	chart2 = new Highcharts.Chart({
+	 		credits: {
+	 			enabled: false
+	 		},
+	 		chart: {
+	 			renderTo: 'container2',
+	 			defaultSeriesType: 'spline',
+	 			events: {
+	 				load: requestData2
+	 			}
+	 		},
+	 		title: {
+	 			text: 'Live Oxygen Saturation Data'
+	 		},  
+	 		xAxis: {
+	 			type: 'datetime',
+	 			tickPixelInterval: 150,
+	 			maxZoom: 20 * 1000
+	 		},
+	 		yAxis: {
+	 			minPadding: 0.2,
+	 			maxPadding: 0.2,
+	 			title: {
+	 				text: 'Value',
+	 				margin: 80
+	 			}
+	 		},
+	 		series: [{
+	 			name: 'SPO2 [%]',
+	 			data: []
+	 		}]
+	 	});
+
+	 	chart3 = new Highcharts.Chart({
+	 		credits: {
+	 			enabled: false
+	 		},
+	 		chart: {
+	 			renderTo: 'container3',
+	 			defaultSeriesType: 'spline',
+	 			events: {
+	 				load: requestData3
+	 			}
+	 		},
+	 		title: {
+	 			text: 'Live Body Temperature Data'
+	 		},  
+	 		xAxis: {
+	 			type: 'datetime',
+	 			tickPixelInterval: 150,
+	 			maxZoom: 20 * 1000
+	 		},
+	 		yAxis: {
+	 			minPadding: 0.2,
+	 			maxPadding: 0.2,
+	 			title: {
+	 				text: 'Value',
+	 				margin: 80
+	 			}
+	 		},
+	 		series: [{
+	 			name: 'Body Temperature [°C]',
+	 			data: []
+	 		}]
+	 	});
+	 });
+</script>
+</body>
+</html>

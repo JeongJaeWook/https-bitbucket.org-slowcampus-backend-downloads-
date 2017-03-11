@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="0.20400000000000001" tests="10" failures="0" skipped="3">
+  <testsuite name="Root Suite" timestamp="2016-10-27T05:02:20" tests="0" failures="0" time="0">
+  </testsuite>
+  <testsuite name="ADMIN HOME" timestamp="2016-10-27T05:02:20" tests="1" failures="0" time="0.105">
+    <testcase name="ADMIN HOME should return 200 OK" time="0.105" classname="should return 200 OK">
+    </testcase>
+  </testsuite>
+  <testsuite name="INDEX" timestamp="2016-10-27T05:02:20" tests="2" failures="0" time="0.022">
+    <testcase name="INDEX should return 200 OK" time="0.012" classname="should return 200 OK">
+    </testcase>
+    <testcase name="INDEX should return 404 OK" time="0.01" classname="should return 404 OK">
+    </testcase>
+  </testsuite>
+  <testsuite name="INVESTOR HOME" timestamp="2016-10-27T05:02:20" tests="1" failures="0" time="0.004">
+    <testcase name="INVESTOR HOME should return 200 OK" time="0.004" classname="should return 200 OK">
+    </testcase>
+  </testsuite>
+  <testsuite name="Array" timestamp="2016-10-27T05:02:20" tests="1" failures="0" time="0">
+    <testcase name="Array should start empty" time="0" classname="should start empty">
+    </testcase>
+  </testsuite>
+  <testsuite name="Users" timestamp="2016-10-27T05:02:20" tests="5" failures="0" time="0.07300000000000001">
+    <testcase name="Users should list ALL Users on /Users GET" time="0.057" classname="should list ALL Users on /Users GET">
+    </testcase>
+    <testcase name="Users should list a SINGLE User on /Users/&lt;id&gt; GET" time="0.016" classname="should list a SINGLE User on /Users/&lt;id&gt; GET">
+    </testcase>
+  </testsuite>
+</testsuites>

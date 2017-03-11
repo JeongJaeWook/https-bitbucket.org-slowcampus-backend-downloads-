@@ -1,0 +1,100 @@
+<!doctype>
+<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
+<link type="text/css" rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/rickshaw/1.5.1/rickshaw.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/rickshaw/1.5.1/rickshaw.min.js"></script>
+
+<link type="text/css" rel="stylesheet"
+  href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+<style>
+#chart_container {
+  position: relative;
+  font-family: Arial, Helvetica, sans-serif;
+}
+#chart {
+  position: relative;
+  left: 40px;
+}
+.rickshaw_graph .y_ticks {
+  left: 0;
+}
+#y_axis {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 40px;
+}
+</style>
+
+<h1> Soma JJK Team </h1>
+
+<div id="chart_container">
+  <div id="y_axis"></div>
+  <div id="chart"></div>
+</div>
+
+<p>
+<button class="btn btn-primary" type="button" onclick="getMoreData()">New Data !</button>
+</p>
+
+<script>
+
+
+var palette = new Rickshaw.Color.Palette();
+
+var orgdata = [
+  {
+    name: "West",
+    data: [ { x: -1893456000, y: 7082086 }, { x: -1577923200, y: 9213920 }, { x: -1262304000, y: 12323836 }, { x: -946771200, y: 14379119 }, { x: -631152000, y: 20189962 }, { x: -315619200, y: 28053104 }, { x: 0, y: 34804193 }, { x: 315532800, y: 43172490 }, { x: 631152000, y: 52786082 }, { x: 946684800, y: 63197932 }, { x: 1262304000, y: 71945553 } ],
+    color: palette.color()
+  }
+];
+
+var graph = new Rickshaw.Graph.Ajax( {
+  element: document.querySelector("#chart"),
+  width: 540,
+  height: 250,
+  dataURL: '/api/data1',
+  onData: function(d) { return d },
+  series: orgdata
+} );
+
+var x_axis = new Rickshaw.Graph.Axis.Time( { graph: graph } );
+
+var y_axis = new Rickshaw.Graph.Axis.Y( {
+  graph: graph,
+  orientation: 'left',
+  tickFormat: Rickshaw.Fixtures.Number.formatKMBT,
+  element: document.getElementById('y_axis'),
+} );
+
+//graph.setSeries(orgdata);
+graph.render();
+
+function getMoreData() {
+  $.ajax({
+    method:'GET',
+    url:"/api/data1",
+    data: {
+      msg: 'Hello'
+    },
+    error: function(XMLHttpRequest, textStatus, errorThrown) {
+      alert("Status: " + textStatus); alert("Error: " + errorThrown);
+    },
+    success:function(data) {
+      console.log('AJAX RES');
+
+      data.forEach(function(item) {
+        console.log('NAME', item.name);
+
+      });
+
+
+    }
+  });
+}
+
+</script>

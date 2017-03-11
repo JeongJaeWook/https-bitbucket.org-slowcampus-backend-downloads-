@@ -1,0 +1,41 @@
+{
+  "database": {
+    "host": "dev-platform-fin2b-com.cvg072slrknb.ap-northeast-2.rds.amazonaws.com",
+    "port": 3306,
+    "name": "unit_test",
+    "user": "fin2b",
+    "password": ""
+  },
+  "server": {
+    "name": "seed",
+    "domain" : "http://localhost",
+    "environment" : "default",
+    "port": 3000,
+    "imgUrl" : "http://localhost/img/"
+  },
+  "aws" : {
+    "credentials": {
+      "accessKeyId": "",
+      "secretAccessKey": ""
+    },
+    "ses" : {
+      "region" : "us-west-2",
+      "endpoint" : "email.us-west-2.amazonaws.com"
+    },
+    "s3" : {
+      "endpoint" : "https://s3.ap-northeast-2.amazonaws.com",
+      "region" : "ap-northeast-2", // Seoul
+      "bucket": "kmarket1"
+    }
+  },
+  "system" : {
+    "email" : "support@fin2b.com",
+    "name" : "Fin2b",
+    "phone" : "01023201886"
+  },
+  "kssms" : {
+    "url":"",
+    "id" : "",
+    "key" : ""
+  }
+}
