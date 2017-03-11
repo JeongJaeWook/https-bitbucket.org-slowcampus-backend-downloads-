@@ -1,5 +1,5 @@
 var knex = require('knex')({
-    debug: true,
+    debug: false,
     client: 'mysql',
     connection: {
       host: 'slow2.clrrpqxdnnah.ap-northeast-2.rds.amazonaws.com',
@@ -26,6 +26,9 @@ console.log(q2.toString());
 /* 정상 케이스 생성 - query 수행 */
 q1.then(function(rows) {
     console.log('ROWS', rows.length);
+    for(var i=0; i<rows.length; i++) {
+      console.log(rows[i]);
+    }
   })
   .catch(function(err) {
     console.log(err);
@@ -36,5 +39,5 @@ q3.then(function(rows) {
     console.log('ROWS', rows.length);
   })
   .catch(function(err) {
-    console.log(err);
+    console.log('FAILED !!');
   });
