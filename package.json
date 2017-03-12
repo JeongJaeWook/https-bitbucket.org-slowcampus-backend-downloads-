@@ -23,6 +23,7 @@
     "lodash": "*",
     "log4js": "*",
     "knex": "*",
+    "mosca": "*",
     "mysql": "*",
 	
     "shortid": "*",
