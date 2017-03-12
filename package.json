@@ -24,8 +24,9 @@
     "log4js": "*",
     "knex": "*",
     "mosca": "*",
+    "mqtt": "*",
     "mysql": "*",
-	
+	  "serialport": "*",
     "shortid": "*",
     "decamelize": "*",
     "camelize": "*"

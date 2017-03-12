@@ -15,9 +15,15 @@ var knex = require('knex')({
     },
 });
 
-var q1 = knex.select().from('user');
-var q2 = knex.select().from('sensor1');
-var q3 = knex.select().from('q3');
+var q1 = knex.select().from('sensor1'); // 전체 레코드
+var q1 = knex.first().from('sensor1'); // 첫 레코드 하나
+var q1 = knex.select().from('sensor1').limit(10); // 10개 레코드로 제한
+var q1 = knex.select().from('sensor1').orderBy('seq', 'desc').limit(10); // 뒤에서부터 10개 레코드로 제한
+
+// sensor1 테이블의 필드는 'seq', 'value'.
+// 'seq'필드는 auto_increment로 설정되어 있어서 우리가 지정할 필요가 없음.
+var q2 = knex.insert({value: 10.0}).into('sensor1');
+  var q3 = knex.select().from('q3');
 
 /* toString() 를 이용하여 query내용을 볼 수 있다 */
 console.log(q1.toString());
@@ -34,6 +40,13 @@ q1.then(function(rows) {
     console.log(err);
   });
 
+/* INSERT */
+q2.then(function(id) {
+    console.log('RESULT of INSERT', id);
+  })
+  .catch(function(err) {
+    console.log(err);
+  });
 /* 오류 케이스 생성 - 테이블 이름이 틀린 경우임 */
 q3.then(function(rows) {
     console.log('ROWS', rows.length);

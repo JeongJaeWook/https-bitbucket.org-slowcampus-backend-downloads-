@@ -24,12 +24,18 @@
     <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
     <script>
       var socket = io();
+      /* form 태그에 submit 이벤트 발생시 처리 내용 */
       $('form').submit(function() {
+        // 'chat message' 라는 이름의 이벤트 생성
+        // 이 이벤트와 함께 전달하는 메시지내용은 'm'이라는 id를 가진 태그의 값을 담도록 지정함.
         socket.emit('chat message', $('#m').val());
         $('#m').val('');
         return false;
       });
+
+      /* 'chat message' 라는 이름의 이벤트를 수신하였을 때 처리 내용 */
       socket.on('chat message', function(msg){
+        // 'messages'라는 id를 가진 태그에 '<li>' 내용을 추가(append)함
         $('#messages').append($('<li>').text(msg));
       });
     </script>

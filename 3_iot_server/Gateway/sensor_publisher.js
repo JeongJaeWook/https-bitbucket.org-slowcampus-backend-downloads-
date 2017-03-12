@@ -1,4 +1,8 @@
-﻿var mqtt = require('mqtt');
+﻿/*
+아두이노와 시리얼통신으로 연동하여 센서데이타를 읽어서 MQTT서버로 보냄.
+MQTT서버의 주소를 확인하여야 함.
+*/
+var mqtt = require('mqtt');
 // var sleep = require('sleep');
 // var mqtt_publisher = mqtt.connect('mqtt://test.mosquitto.org');
 
@@ -15,39 +19,24 @@ var mqtt_publisher = mqtt.connect('mqtt://1.234.65.181');
 serialPort.on("open", function () {
 	console.log('open');
 	serialPort.on('data', function (data) {
-		
-	var json_data;
-	try {
-		json_data = JSON.parse(data);
-		//console.log(json_data);
-		for(var i in json_data) {
-			var temp = [
-				getEpochTime(),
-				json_data[i]
-			];
-			temp = JSON.stringify(temp);
-			mqtt_publisher.publish(i, temp);
-			console.log(i + " : " +temp);
-		}
-	}catch(err) {
-		console.log("Trash Values processed");
-	}
-	 
-	//console.log(data);
-	//console.log(json_data);
-	// json_data.forEach(function(err,item){
-	// 	if(!err)
-	// 		console.log(item);
-	// })
-	// for(var key in json_data){
-	// 	console.log(json_data(key));
-	// 	//mqtt_publisher.publish(key,json_data[key]);
-	// };
-		//console.log('data received: ' + data);
-		//mqtt_publisher.publish('MQ_3', data.toString());
-	});
+    var json_data;
+    try {
+      json_data = JSON.parse(data);
+      //console.log(json_data);
+      for(var i in json_data) {
+        var temp = [
+          getEpochTime(),
+          json_data[i]
+        ];
+        temp = JSON.stringify(temp);
+        mqtt_publisher.publish(i, temp);
+        console.log(i + " : " +temp);
+      }
+    } catch(err) {
+      console.log("Trash Values processed");
+    }
+  });
 });
-
 
 
 mqtt_publisher.on('connect', function() {

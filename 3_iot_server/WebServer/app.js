@@ -135,7 +135,7 @@ var data2 = require('./routes/data2');
 app.post('/noti', function (req, res) {
 	console.log('RECV NOTI', req.body);
 	ioserv.sockets.in('CURRENT').emit('redraw',
-		{sensorname: req.body.sensorname, point: [new Date(), 10.6]});
+		{sensorname: req.body.sensorname, value: req.body.value});
 	res.json({'result':'OK'});
 });
 

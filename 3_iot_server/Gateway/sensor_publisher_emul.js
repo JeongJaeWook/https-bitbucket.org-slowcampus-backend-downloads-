@@ -1,7 +1,11 @@
-﻿var mqtt = require('mqtt');
-var mqtt_publisher = mqtt.connect('mqtt://localhost');
+﻿/*
+센서데이타를 랜덤으로 생성하여 MQTT서버로 보냄.
+MQTT서버의 주소를 확인하여야 함.
+*/
+var mqtt = require('mqtt');
+//var mqtt_publisher = mqtt.connect('mqtt://localhost');
+var mqtt_publisher = mqtt.connect('mqtt://lab.slowcampus.com');
 // var mqtt_publisher = mqtt.connect('mqtt://test.mosquitto.org');
-//var mqtt_publisher = mqtt.createClient(1883,'1.234.65.181');
 
 var sensor_names = [
   'sensor1',

@@ -31,6 +31,8 @@ MySqlDao.prototype.getPK = function() {
 MySqlDao.prototype.all = function(cb) {
   var that = this;
   this.rawknex(that.table).select('*')
+    .orderBy(that.primaryFields[0], 'desc')
+    .limit(100)
     .then(function(rows) {
       console.debug(that.table, 'all - ROWS', rows.length);
       if (that.jsonStyleFields) {

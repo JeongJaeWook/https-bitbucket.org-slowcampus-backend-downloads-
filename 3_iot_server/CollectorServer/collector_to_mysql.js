@@ -1,6 +1,6 @@
 var mqtt    = require('mqtt');
 var http    = require('http');
-var mysqlDao = require('../helpers/mysqlDao');
+var mysqlDao = require('../WebServer/helpers/mysqlDao');
 // DB tables
 var userTab = new mysqlDao.MySqlDao('slow', 'user', ['id'], []);
 var s1Tab = new mysqlDao.MySqlDao('slow', 'sensor1', ['seq'], []);
@@ -8,8 +8,6 @@ var s2Tab = new mysqlDao.MySqlDao('slow', 'sensor2', ['seq'], []);
 var s3Tab = new mysqlDao.MySqlDao('slow', 'sensor3', ['seq'], []);
 var s4Tab = new mysqlDao.MySqlDao('slow', 'sensor4', ['seq'], []);
 var s5Tab = new mysqlDao.MySqlDao('slow', 'sensor5', ['seq'], []);
-
-s1Tab.add({value: 10});
 
 var sensorname_to_table = {
   'sensor1': s1Tab,
