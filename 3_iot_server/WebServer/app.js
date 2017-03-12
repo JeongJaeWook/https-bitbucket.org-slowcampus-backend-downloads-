@@ -107,8 +107,8 @@ app.get('/api/current', function (req, res) {
 	var table = sensorname_to_table[sensorname];
 	table.all(function(err, rows) {
 	  if (!err) {
-      console.log(rows[rows.length-1]);
-      res.json(rows[rows.length-1]);
+      console.log(rows[0]);
+      res.json(rows[0]);
     } else {
       res.json({});
     }
